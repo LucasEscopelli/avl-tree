@@ -4,15 +4,15 @@ Abrir Pull Request pra main
 Quem der approval mergeia
 
 Interfaces:
-Tree
-Node
+Tree,
+Node,
 TreePrinter
 
 Classes:
-BinaryTree
-BinaryNode
-TreeBalancer
-TreePrinterPrefix
-TreePrinterInfix
-TreePrinterPosfix
+BinaryTree,
+BinaryNode,
+TreeBalancer,
+TreePrinterPrefix,
+TreePrinterInfix,
+TreePrinterPosfix,
 TreeDrawPrinter
