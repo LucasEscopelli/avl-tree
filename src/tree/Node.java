@@ -1,3 +1,5 @@
+package tree;
+
 public class Node<C> {
     private C value;
     private int height;

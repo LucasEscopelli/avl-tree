@@ -1,6 +1,8 @@
+package tree;
+
 import java.util.List;
 
-public class BinaryTree<C extends Comparable<C>> implements Tree<C>{
+public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     Node<C> root;
 
     public BinaryTree(C ...values){
