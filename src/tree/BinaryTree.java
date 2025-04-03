@@ -1,7 +1,5 @@
 package tree;
 
-import java.util.List;
-
 public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     Node<C> root;
 
@@ -45,7 +43,6 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
 
     @Override
     public void delete(C value) {
-
     }
 
     @Override
@@ -54,22 +51,8 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     }
 
     @Override
-    public List<C> getTree() {
-        return List.of();
-    }
-
-    @Override
-    public void printTree() {
-
-    }
-
-    @Override
-    public void balanceTree() {
-
-    }
-
-    @Override
-    public void getOrAdd(C value) {
-
+    public C getOrAdd(C value, C defaultValue) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOrAdd'");
     }
 }
