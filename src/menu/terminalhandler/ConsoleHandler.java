@@ -17,7 +17,7 @@ public class ConsoleHandler {
     }
 
     public static void invalidOption(){
-        ConsoleHandler.clearConsole();
+        clearConsole();
         System.out.println("******************************************************");
         System.out.println("Opcao invalida, insira novamente conforme a descricao:");
         System.out.println("******************************************************");

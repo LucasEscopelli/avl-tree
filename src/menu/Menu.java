@@ -39,7 +39,7 @@ public class Menu {
     }
 
     private void printActions() {
-        actions.forEach(funcao -> System.out.println(funcao.getName()));
+        actions.forEach(action -> System.out.println(action.getName()));
     }
 
     private boolean isInvalidChoice(int choice) {

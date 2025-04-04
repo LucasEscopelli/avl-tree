@@ -1,6 +1,7 @@
 package menu.actions;
 
 import menu.actions.abstractactions.Action;
+import menu.terminalhandler.ConsoleHandler;
 import menu.terminalhandler.UserInteractor;
 import tree.Tree;
 
@@ -18,6 +19,7 @@ public class GetAction <T> extends Action<Tree<T>> {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
         tTree.get((T) node);
+        ConsoleHandler.clearConsole();
     }
 
     @Override
