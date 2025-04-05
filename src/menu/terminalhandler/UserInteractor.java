@@ -12,5 +12,4 @@ public class UserInteractor {
             return getIntegerValueFromUser(scanner, printFunctions);
         }
     }
-
 }

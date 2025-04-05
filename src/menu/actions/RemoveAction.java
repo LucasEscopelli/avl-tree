@@ -6,7 +6,6 @@ import tree.Tree;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class RemoveAction <T> extends Action<Tree<T>> {
     public RemoveAction(String name, Scanner scanner) {

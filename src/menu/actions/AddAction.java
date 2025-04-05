@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class AddAction<T> extends Action<Tree<T>> {
-    Function<Integer, T> converter;
     public AddAction(String label, Scanner scanner){
         super(label, scanner);
     }
