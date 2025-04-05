@@ -6,6 +6,6 @@ import tree.BinaryTree;
 public class InfixPrinter implements TreePrinter {
     @Override
     public void print(BinaryTree tree) {
-
+        System.out.println("infix");
     }
 }
