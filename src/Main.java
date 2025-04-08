@@ -6,6 +6,6 @@ public class Main {
         System.out.println("Trabalho prático Grau A - Árvore AVL");
 
         Menu menu = new Menu();
-        menu.menu();
+        menu.run();
     }
 }
