@@ -33,8 +33,6 @@ public class PrintAction <T> extends Action<Tree<T>> {
         printPrinterOptions();
         int choice = UserInteractor.getIntegerValueFromUser(scanner, this::printPrinterOptions);
 
-        ConsoleHandler.clearConsole();
-
         if (isInvalidChoice(choice)){
             runAction(tree);
             return ActionStatus.OK;
