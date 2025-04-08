@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    private ActionStatus actionStatus = ActionStatus.OK;
     private final List<Action<Tree<Integer>>> actions = new ArrayList<>();
     private final Tree<Integer> tree = new BinaryTree<>();
     private final Scanner scanner = new Scanner(System.in);
@@ -25,7 +26,7 @@ public class Menu {
     }
 
     public void menu() {
-        while (true) {
+        while (actionStatus.equals(ActionStatus.OK)) {
             printActions();
             Integer choice = UserInteractor.getIntegerValueFromUser(scanner, this::printActions);
             ConsoleHandler.clearConsole();
@@ -34,7 +35,7 @@ public class Menu {
                 continue;
             }
 
-            actions.get(choice).accept(tree);
+            actionStatus = actions.get(choice).runAction(tree);
         }
     }
 

@@ -15,16 +15,13 @@ public class GetAction <T> extends Action<Tree<T>> {
     }
 
     @Override
-    public void accept(Tree<T> tTree) {
+    public ActionStatus runAction(Tree<T> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        tTree.get((T) node);
+        tree.get((T) node);
         ConsoleHandler.clearConsole();
-    }
 
-    @Override
-    public Consumer<Tree<T>> andThen(Consumer<? super Tree<T>> after) {
-        return super.andThen(after);
+        return ActionStatus.OK;
     }
 
     private void printActionToDo(){

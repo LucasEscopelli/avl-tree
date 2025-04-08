@@ -13,15 +13,11 @@ public class RemoveAction <T> extends Action<Tree<T>> {
     }
 
     @Override
-    public void accept(Tree<T> tTree) {
+    public ActionStatus runAction(Tree<T> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        tTree.delete((T) node);
-    }
-
-    @Override
-    public Consumer<Tree<T>> andThen(Consumer<? super Tree<T>> after) {
-        return super.andThen(after);
+        tree.delete((T) node);
+        return ActionStatus.OK;
     }
 
     private void printActionToDo(){

@@ -14,15 +14,11 @@ public class AddAction<T> extends Action<Tree<T>> {
     }
 
     @Override
-    public void accept(Tree<T> integerTree) {
+    public ActionStatus runAction(Tree<T> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        integerTree.add((T) node);
-    }
-
-    @Override
-    public Consumer<Tree<T>> andThen(Consumer<? super Tree<T>> after) {
-        return super.andThen(after);
+        tree.add((T) node);
+        return ActionStatus.OK;
     }
 
     private void printActionToDo(){

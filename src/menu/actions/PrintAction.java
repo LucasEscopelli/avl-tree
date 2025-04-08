@@ -29,20 +29,21 @@ public class PrintAction <T> extends Action<Tree<T>> {
     }
 
     @Override
-    public void accept(Tree<T> tree) {
+    public ActionStatus runAction(Tree<T> tree) {
         printPrinterOptions();
         int choice = UserInteractor.getIntegerValueFromUser(scanner, this::printPrinterOptions);
 
         ConsoleHandler.clearConsole();
 
         if (isInvalidChoice(choice)){
-            accept(tree);
-            return;
+            runAction(tree);
+            return ActionStatus.OK;
         }
 
         printer = printerOptions.get(choice - 1).getValue().get();
         printer.print((BinaryTree) tree);
 
+        return ActionStatus.OK;
     }
 
     private void printPrinterOptions() {

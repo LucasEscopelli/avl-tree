@@ -12,13 +12,8 @@ public class CloseApplicationAction <T> extends Action<Tree<T>> {
     }
 
     @Override
-    public void accept(Tree<T> tTree) {
+    public ActionStatus runAction(Tree<T> tree) {
         System.out.println("Encerrando aplicação...");
-        System.exit(0);
-    }
-
-    @Override
-    public Consumer<Tree<T>> andThen(Consumer<? super Tree<T>> after) {
-        return super.andThen(after);
+        return ActionStatus.CLOSE_APPLICATION;
     }
 }
