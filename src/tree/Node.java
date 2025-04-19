@@ -16,7 +16,7 @@ public class Node<C> {
         this.count = 1;
     }
 
-    public boolean emptyRight() { return this.left == null; }
+    public boolean emptyRight() { return this.right == null; }
     public boolean emptyLeft() { return this.left == null; }
     public Node<C> getRight() {
         return right;
@@ -31,10 +31,14 @@ public class Node<C> {
     }
 
     public void calculateHeight(){
-        this.height = 0;
+        int leftHeight = (left != null) ? left.height : -1;
+        int rightHeight = (right != null) ? right.height : -1;
+        this.height = 1 + Math.max(leftHeight, rightHeight);
     }
     public int getBalanceFactor(){
-        return 0;
+        int leftHeight = (left != null) ? left.height : -1;
+        int rightHeight = (right != null) ? right.height : -1;
+        return leftHeight - rightHeight;
     }
 
     public int getHeight() {
