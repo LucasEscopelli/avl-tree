@@ -50,7 +50,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     }
     private void deleteNodeWithOneChild(Node<C> parent, Node<C> current){
         Node<C> onlyChild = !current.emptyLeft() ? current.getLeft() : null;
-        onlyChild = !current.emptyRight() ? current.getRight() : null;
+        onlyChild = !current.emptyRight() ? current.getRight() : onlyChild;
         if(parent.getLeft() == current) parent.setLeft(onlyChild);
         else if(parent.getRight() == current) parent.setRight(onlyChild);
     }
@@ -71,14 +71,16 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
             deleteNodeWithOneChild(parent, node);
             return;
         }
-        Node<C> parentOfBestFromLeft = node;
-        Node<C> bestFromLeft = node.getLeft();
-        while(!bestFromLeft.emptyRight()) {
-            parentOfBestFromLeft = bestFromLeft;
-            bestFromLeft = bestFromLeft.getRight();
-        }
-        node.setValue(bestFromLeft.getValue());
-        deleteNodeWithOneChild(parentOfBestFromLeft, bestFromLeft);
+        path.addToPath(node.getLeft());
+
+        while(!path.getLast().emptyRight())
+            path.addToPath(path.getLast().getRight());
+
+        C valueToSet = path.getLast().getValue();
+        deleteNodeWithOneChild(path.getParent(1), path.getLast());
+        path.popBack();
+        node.setValue(valueToSet);
+        path.reverseForEachWithParent(this::updateNodes);
     }
     @Override
     public C getOrAdd(C value, C defaultValue) {

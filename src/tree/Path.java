@@ -2,6 +2,7 @@ package tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class Path<C extends Comparable<C>> {
@@ -13,9 +14,9 @@ public class Path<C extends Comparable<C>> {
         for(Node<C> node: path)
             func.accept(node);
     }
-    public void reverseForEach(Consumer<Node<C>> func){
+    public void reverseForEachWithParent(BiConsumer<Node<C>, Node<C>> func){
         for(int i=path.size()-1;i>=0;i--)
-            func.accept(path.get(i));
+            func.accept((i>0 ? path.get(i-1) : null), path.get(i));
     }
     public boolean reachedValue(C c){
         if(this.isEmpty()) return false;
@@ -37,6 +38,10 @@ public class Path<C extends Comparable<C>> {
             return null;
         }
         return path.get(path.size() - 1 - level);
+    }
+    public void popBack(){
+        if(this.isEmpty()) return;
+        this.path.remove(this.path.size()-1);
     }
     public boolean isEmpty(){
         return path.isEmpty();
