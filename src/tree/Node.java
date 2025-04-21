@@ -36,8 +36,8 @@ public class Node<C> {
         this.height = 1 + Math.max(leftHeight, rightHeight);
     }
     public int getBalanceFactor(){
-        int leftHeight = (left != null) ? left.height : -1;
-        int rightHeight = (right != null) ? right.height : -1;
+        int leftHeight = (left != null) ? left.height : 0;
+        int rightHeight = (right != null) ? right.height : 0;
         return leftHeight - rightHeight;
     }
 
