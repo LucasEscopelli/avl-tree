@@ -28,6 +28,11 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         if(path.reachedValue(value)) return path.getLast().getValue();
         return null;
     }
+    public void updateNodes(Node<C> parent, Node<C> current){
+        current.calculateHeight();
+        TreeBalancer.balance(parent, current);
+    }
+
     @Override
     public void add(C value) {
         Path<C> path = this.pathTo(value);
@@ -36,15 +41,12 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
             return;
         }
         checkAndAddInto(value, path.getLast());
-        path.reverseForEach(this::balance);
+        path.reverseForEachWithParent(this::updateNodes);
     }
     private void checkAndAddInto(C value, Node<C> current){
         int comparatorResult = current.getValue().compareTo(value);
         if(comparatorResult < 0) current.setLeft(new Node<>(value));
         else if(comparatorResult > 0) current.setRight(new Node<>(value));
-        else current.setCount(current.getCount()+1);
-    }
-    private void balance(Node<C> current){
     }
     private void deleteNodeWithOneChild(Node<C> parent, Node<C> current){
         Node<C> onlyChild = !current.emptyLeft() ? current.getLeft() : null;
