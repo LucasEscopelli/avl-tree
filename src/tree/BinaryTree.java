@@ -25,7 +25,6 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     @Override
     public C get(C value) {
         final Path<C> path = pathTo(value);
-        if(path.isEmpty()) return null;
         if(path.reachedValue(value)) return path.getLast().getValue();
         return null;
     }

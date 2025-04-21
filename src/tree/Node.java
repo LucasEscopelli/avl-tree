@@ -3,7 +3,6 @@ package tree;
 public class Node<C> {
     private C value = null;
     private int height = 0;
-    private int count = 0;
     private Node<C> right = null;
     private Node<C> left = null;
 
@@ -13,7 +12,6 @@ public class Node<C> {
 
     public Node(C value){
         this.value = value;
-        this.count = 1;
     }
 
     public boolean emptyRight() { return this.right == null; }
@@ -55,13 +53,5 @@ public class Node<C> {
 
     public void setLeft(Node<C> left) {
         this.left = left;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 }
