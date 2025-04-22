@@ -2,7 +2,7 @@ package tree;
 
 public class Node<C> {
     private C value = null;
-    private int height = 0;
+    private int height = 1;
     private Node<C> right = null;
     private Node<C> left = null;
 
