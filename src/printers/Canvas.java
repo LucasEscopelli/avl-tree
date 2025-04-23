@@ -1,8 +1,12 @@
 package printers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Canvas {
     private final char[][] matrix;
     private final int ROWS = 12;
+    private final int MARGIN = 1;
     private final int COLUMNS = 100;
     public Canvas(){
         matrix = new char[ROWS][COLUMNS];
@@ -35,10 +39,25 @@ public class Canvas {
         }
     }
     public void showMatrix(){
+        List<String> linesToPrint = new ArrayList<>();
+        int maxColumn = 0;
         for(int i=0;i<ROWS;i++){
             String line = String.valueOf(matrix[i]).stripTrailing();
             if(line.isEmpty()) continue;
-            System.out.println(line);
+            maxColumn = Math.max(maxColumn, line.length());
+            linesToPrint.add(line);
         }
+        StringBuilder ans = new StringBuilder();
+        ans.append("#".repeat(maxColumn + 2 + 2*MARGIN)).append("\n");
+        ans.append("#").append(" ".repeat(maxColumn + 2*MARGIN)).append("#\n");
+        for(String line: linesToPrint){
+            int curSize = line.length();
+            ans.append("#").append(" ".repeat(MARGIN));
+            ans.append(line).append(" ".repeat(maxColumn - curSize));
+            ans.append(" ".repeat(MARGIN)).append("#\n");
+        }
+        ans.append("#").append(" ".repeat(maxColumn + 2*MARGIN)).append("#\n");
+        ans.append("#".repeat(maxColumn + 2 + 2*MARGIN)).append("\n");
+        System.out.print(ans);
     }
 }
