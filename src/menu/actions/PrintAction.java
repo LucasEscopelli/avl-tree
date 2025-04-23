@@ -1,7 +1,6 @@
 package menu.actions;
 
 import menu.actions.abstractactions.Action;
-import menu.terminalhandler.ConsoleHandler;
 import menu.terminalhandler.UserInteractor;
 import printers.AsciiPrinter;
 import printers.InfixPrinter;
@@ -12,21 +11,19 @@ import tree.BinaryTree;
 import tree.Tree;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-public class PrintAction <T> extends Action<Tree<T>> {
-    private final List<Map.Entry<String, Supplier<TreePrinter>>> printerOptions;
-    TreePrinter printer;
+public class PrintAction <T extends Comparable<T>> extends Action<Tree<T>> {
+    private final List<Supplier<TreePrinter<T>>> printerOptions;
 
     public PrintAction(String name, Scanner scanner) {
         super(name, scanner);
         printerOptions = List.of(
-                Map.entry("1. Infix", InfixPrinter::new),
-                Map.entry("2. Prefix", PrefixPrinter::new),
-                Map.entry("3. Postfix", PosfixPrinter::new),
-                Map.entry("4. ascii", AsciiPrinter::new)
+                InfixPrinter::new,
+                PrefixPrinter::new,
+                PosfixPrinter::new,
+                AsciiPrinter::new
         );
     }
 
@@ -35,20 +32,19 @@ public class PrintAction <T> extends Action<Tree<T>> {
         printPrinterOptions();
         int choice = UserInteractor.getIntegerValueFromUser(scanner, this::printPrinterOptions);
 
-        if (isInvalidChoice(choice)){
-            runAction(tree);
-            return ActionStatus.OK;
-        }
+        if (isInvalidChoice(choice)) return ActionStatus.FAILED;
 
-        printer = printerOptions.get(choice - 1).getValue().get();
-        printer.print((BinaryTree) tree);
+        TreePrinter<T> printer = printerOptions.get(choice - 1).get();
+        printer.print((BinaryTree<T>) tree);
 
         return ActionStatus.OK;
     }
 
     private void printPrinterOptions() {
         System.out.println("Escolha o tipo de impressão:");
-        printerOptions.forEach(printerOption -> System.out.println(printerOption.getKey()));
+        for(int i=0;i<printerOptions.size();i++){
+            System.out.println((i+1) + ". "+printerOptions.get(i).get().name());
+        }
     }
 
     private boolean isInvalidChoice(int choice) {

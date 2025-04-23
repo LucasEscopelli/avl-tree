@@ -5,18 +5,16 @@ import menu.terminalhandler.UserInteractor;
 import tree.Tree;
 
 import java.util.Scanner;
-import java.util.function.Consumer;
 
-public class RemoveAction <T> extends Action<Tree<T>> {
+public class RemoveAction extends Action<Tree<Integer>> {
     public RemoveAction(String name, Scanner scanner) {
         super(name, scanner);
     }
-
     @Override
-    public ActionStatus runAction(Tree<T> tree) {
+    public ActionStatus runAction(Tree<Integer> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        tree.delete((T) node);
+        tree.delete(node);
         return ActionStatus.OK;
     }
 
