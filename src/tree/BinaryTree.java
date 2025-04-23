@@ -49,6 +49,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         int comparatorResult = value.compareTo(current.getValue());
         if(comparatorResult < 0) current.setLeft(new Node<>(value));
         else if(comparatorResult > 0) current.setRight(new Node<>(value));
+        current.calculateHeight();
     }
     @Override
     public void delete(C value){

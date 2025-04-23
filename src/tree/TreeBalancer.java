@@ -81,8 +81,8 @@ public class TreeBalancer<C extends Comparable<C>> {
     private void doubleRotationLeft(Node<C> parent, Node<C> current){
         Node<C> rightChild = current.getRight();
         assert(rightChild != null); // We should only call this method if the right rotation is possible.
-        simpleRotationLeft(current, rightChild);
-        simpleRotationRight(parent, current);
+        simpleRotationRight(current, rightChild);
+        simpleRotationLeft(parent, current);
     }
     private void setNewChildForParent(Node<C> parent, Node<C> current, Node<C> child){
         if(parent == null) {

@@ -29,8 +29,8 @@ public class Node<C> {
     }
 
     public void calculateHeight(){
-        int leftHeight = (left != null) ? left.height : -1;
-        int rightHeight = (right != null) ? right.height : -1;
+        int leftHeight = (left != null) ? left.height : 0;
+        int rightHeight = (right != null) ? right.height : 0;
         this.height = 1 + Math.max(leftHeight, rightHeight);
     }
     public int getBalanceFactor(){
