@@ -3,6 +3,7 @@ package menu.actions;
 import menu.actions.abstractactions.Action;
 import menu.terminalhandler.ConsoleHandler;
 import menu.terminalhandler.UserInteractor;
+import printers.AsciiPrinter;
 import printers.InfixPrinter;
 import printers.PosfixPrinter;
 import printers.PrefixPrinter;
@@ -24,7 +25,8 @@ public class PrintAction <T> extends Action<Tree<T>> {
         printerOptions = List.of(
                 Map.entry("1. Infix", InfixPrinter::new),
                 Map.entry("2. Prefix", PrefixPrinter::new),
-                Map.entry("3. Postfix", PosfixPrinter::new)
+                Map.entry("3. Postfix", PosfixPrinter::new),
+                Map.entry("4. ascii", AsciiPrinter::new)
         );
     }
 
