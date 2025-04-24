@@ -31,6 +31,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         return null;
     }
     public void updateNodes(Node<C> parent, Node<C> current){
+        assert(current != null);
         current.calculateHeight();
         this.balancer.balance(parent, current);
     }
@@ -56,7 +57,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         Path<C> path = internalDelete(value);
         path.reverseForEachWithParent(this::updateNodes);
     }
-    public Path<C> internalDelete(C value) {
+    private Path<C> internalDelete(C value) {
         Path<C> path = pathTo(value);
         if(!path.reachedValue(value)) throw new RuntimeException("Not found");
         Node<C> parent = path.getParent(1);
@@ -76,6 +77,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         return path;
     }
     private boolean executeSimpleDelete(Node<C> parent, Node<C> current){
+        assert(current != null);
         if(current.emptyRight() && current.emptyLeft()){
             deleteEmptyNode(parent, current);
             return true;
@@ -95,6 +97,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         else parent.setRight(null);
     }
     private void deleteNodeWithOneChild(Node<C> parent, Node<C> current){
+        assert(current != null);
         Node<C> onlyChild = !current.emptyLeft() ? current.getLeft() : null;
         onlyChild = !current.emptyRight() ? current.getRight() : onlyChild;
         if(parent == null) this.root = onlyChild;

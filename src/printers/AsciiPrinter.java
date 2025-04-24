@@ -31,6 +31,7 @@ public class AsciiPrinter<C extends Comparable<C>> implements TreePrinter<C> {
     }
     @Override
     public void print(BinaryTree<C> tree) {
+        if(tree.getRoot() == null) return;
         indexer.index(tree.getRoot());
         canvas.clearMatrix();
         recursivePrint(tree.getRoot());

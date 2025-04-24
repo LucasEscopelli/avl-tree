@@ -16,7 +16,13 @@ public class RemoveAction <T> extends Action<Tree<T>> {
     public ActionStatus runAction(Tree<T> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        tree.delete((T) node);
+        try {
+            tree.delete((T) node);
+        }catch (Exception e){
+            System.out.println("Valor Não encontrado");
+            return ActionStatus.FAILED;
+        }
+        System.out.println("Valor removido com sucesso");
         return ActionStatus.OK;
     }
 
