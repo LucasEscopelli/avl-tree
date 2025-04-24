@@ -16,9 +16,12 @@ public class GetAction extends Action<Tree<Integer>> {
     public ActionStatus runAction(Tree<Integer> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        tree.get(node);
-        ConsoleHandler.clearConsole();
-
+        Integer value = tree.get(node);
+        if(value == null){
+            System.out.println("Valor não encontrado");
+            return ActionStatus.FAILED;
+        }
+        System.out.println("Valor "+value+" encontrado com sucesso");
         return ActionStatus.OK;
     }
 

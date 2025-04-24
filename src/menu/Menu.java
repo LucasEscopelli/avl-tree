@@ -25,7 +25,7 @@ public class Menu {
             actions.add(new PrintAction<>("Printar árvore.", scanner));
     }
     public void run() {
-        while (actionStatus.equals(ActionStatus.OK)) {
+        while (!actionStatus.equals(ActionStatus.CLOSE_APPLICATION)) {
             printActions();
             Integer choice = UserInteractor.getIntegerValueFromUser(scanner, this::printActions);
             ConsoleHandler.clearConsole();
