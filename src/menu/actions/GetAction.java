@@ -6,19 +6,17 @@ import menu.terminalhandler.UserInteractor;
 import tree.Tree;
 
 import java.util.Scanner;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
-public class GetAction <T> extends Action<Tree<T>> {
+public class GetAction extends Action<Tree<Integer>> {
     public GetAction(String name, Scanner scanner) {
         super(name, scanner);
     }
 
     @Override
-    public ActionStatus runAction(Tree<T> tree) {
+    public ActionStatus runAction(Tree<Integer> tree) {
         printActionToDo();
         Integer node = UserInteractor.getIntegerValueFromUser(scanner, this::printActionToDo);
-        T value = tree.get((T) node);
+        Integer value = tree.get(node);
         if(value == null){
             System.out.println("Valor não encontrado");
             return ActionStatus.FAILED;

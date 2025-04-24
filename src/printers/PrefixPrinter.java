@@ -8,4 +8,9 @@ public class PrefixPrinter<C extends Comparable<C>> implements TreePrinter<C> {
     public void print(BinaryTree<C> tree) {
         System.out.println("prefix");
     }
+
+    @Override
+    public String name() {
+        return "Prefix";
+    }
 }

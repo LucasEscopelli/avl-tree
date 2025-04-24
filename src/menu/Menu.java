@@ -18,31 +18,29 @@ public class Menu {
     private final Scanner scanner = new Scanner(System.in);
 
     public Menu(){
-            actions.add(new CloseApplicationAction<>("0. Fechar aplicacao", scanner));
-            actions.add(new AddAction<>("1. Adicionar Inteiro à árvore.", scanner));
-            actions.add(new GetAction<>("2. Buscar valor na árvore.", scanner));
-            actions.add(new RemoveAction<>("3. Remover valor da árvore.", scanner));
-            actions.add((new PrintAction<>("4. Printar árvore.", scanner)));
+            actions.add(new CloseApplicationAction<>("Fechar aplicacao", scanner));
+            actions.add(new AddAction("Adicionar Inteiro à árvore.", scanner));
+            actions.add(new GetAction("Buscar valor na árvore.", scanner));
+            actions.add(new RemoveAction("Remover valor da árvore.", scanner));
+            actions.add(new PrintAction<>("Printar árvore.", scanner));
     }
-
     public void run() {
         while (!actionStatus.equals(ActionStatus.CLOSE_APPLICATION)) {
             printActions();
             Integer choice = UserInteractor.getIntegerValueFromUser(scanner, this::printActions);
             ConsoleHandler.clearConsole();
-
             if (isInvalidChoice(choice)) {
                 continue;
             }
-
             actionStatus = actions.get(choice).runAction(tree);
         }
     }
-
     private void printActions() {
-        actions.forEach(action -> System.out.println(action.getName()));
-    }
+        for(int i=0;i<actions.size();i++){
+            System.out.println(i+". "+actions.get(i).getName());
 
+        }
+    }
     private boolean isInvalidChoice(int choice) {
         return choice < 0 || choice >= actions.size();
     }

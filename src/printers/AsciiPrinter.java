@@ -38,6 +38,11 @@ public class AsciiPrinter<C extends Comparable<C>> implements TreePrinter<C> {
         canvas.showMatrix();
     }
 
+    @Override
+    public String name() {
+        return "Ascii";
+    }
+
     private String stringFromNode(Node<C> node){
         return String.valueOf(node.getValue());
     }

@@ -8,4 +8,9 @@ public class InfixPrinter<C extends Comparable<C>> implements TreePrinter<C> {
     public void print(BinaryTree<C> tree) {
         System.out.println("infix");
     }
+
+    @Override
+    public String name() {
+        return "Infix";
+    }
 }
