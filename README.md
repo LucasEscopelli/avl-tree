@@ -5,6 +5,7 @@ Quem der approval mergeia
 
 Interfaces:
 1. TreePrinter
+1. PersonReader
 
 Classes:
 1. BinaryTree
@@ -14,3 +15,5 @@ Classes:
 1. TreePrinterInfix
 1. TreePrinterPosfix
 1. TreeDrawPrinter
+1. Person
+1. CsvPersonReader
