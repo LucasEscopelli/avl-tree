@@ -4,25 +4,23 @@ import menu.actions.*;
 import menu.actions.abstractactions.Action;
 import menu.terminalhandler.ConsoleHandler;
 import menu.terminalhandler.UserInteractor;
-import tree.BinaryTree;
-import tree.Tree;
+import model.Context;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    private ActionStatus actionStatus = ActionStatus.OK;
-    private final List<Action<Tree<Integer>>> actions = new ArrayList<>();
-    private final Tree<Integer> tree = new BinaryTree<>();
+    private final List<Action<Context>> actions = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
-
+    Context ctx = new Context();
+    private ActionStatus actionStatus = ActionStatus.OK;
     public Menu(){
             actions.add(new CloseApplicationAction<>("Fechar aplicacao", scanner));
-            actions.add(new AddAction("Adicionar Inteiro à árvore.", scanner));
-            actions.add(new GetAction("Buscar valor na árvore.", scanner));
-            actions.add(new RemoveAction("Remover valor da árvore.", scanner));
-            actions.add(new PrintAction<>("Printar árvore.", scanner));
+            actions.add(new LoadFileAction("Carregar arquivo", scanner));
+            actions.add(new GetPersonByCpfAction("Pesquisar por cpf", scanner));
+            actions.add(new GetPersonWithNamePrefixAction("Pesquisar por prefixo do nome", scanner));
+            actions.add(new GetPersonBetweenDatesAction("Pesquisar por intervalo de nascimento", scanner));
     }
     public void run() {
         while (!actionStatus.equals(ActionStatus.CLOSE_APPLICATION)) {
@@ -32,7 +30,9 @@ public class Menu {
             if (isInvalidChoice(choice)) {
                 continue;
             }
-            actionStatus = actions.get(choice).runAction(tree);
+            printChoice(choice);
+            actionStatus = actions.get(choice).runAction(ctx);
+            printSeparator();
         }
     }
     private void printActions() {
@@ -43,5 +43,11 @@ public class Menu {
     }
     private boolean isInvalidChoice(int choice) {
         return choice < 0 || choice >= actions.size();
+    }
+    private void printChoice(int choice){
+        System.out.printf("Executando opção(%d): %s\n", choice, this.actions.get(choice).getName());
+    }
+    private void printSeparator(){
+        System.out.println("-".repeat(50));
     }
 }

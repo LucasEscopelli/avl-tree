@@ -1,4 +1,4 @@
-package person;
+package model;
 
 public class Person {
     private String cpf;
