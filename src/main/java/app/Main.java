@@ -1,3 +1,4 @@
+package app;
 import menu.Menu;
 
 public class Main {
