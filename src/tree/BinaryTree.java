@@ -1,58 +1,120 @@
 package tree;
 
 public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
-    Node<C> root;
+    private Node<C> root;
+    private final TreeBalancer<C> balancer;
+    public BinaryTree(){
+        this.balancer = new TreeBalancer<>(this);
+    }
 
-    public BinaryTree(C ...values){
-        for(C value: values){
-            add(value);
+    /**
+     * @param value searched value
+     * @return list of nodes of the path going through root to the searched node.
+     * If the node is not in the tree, the last index will be the place where the new value should be inserted.
+     */
+    private Path<C> pathTo(C value){
+        Path<C> response = new Path<>();
+        Node<C> current = this.root;
+        while(current != null){
+            response.addToPath(current);
+            int compareValue = value.compareTo(current.getValue());
+            if(compareValue < 0) current = current.getLeft();
+            else if(compareValue > 0) current = current.getRight();
+            else current = null;
         }
+        return response;
+    }
+    @Override
+    public C get(C value) {
+        final Path<C> path = pathTo(value);
+        if(path.reachedValue(value)) return path.getLast().getValue();
+        return null;
+    }
+    public void updateNodes(Node<C> parent, Node<C> current){
+        assert(current != null);
+        current.calculateHeight();
+        this.balancer.balance(parent, current);
     }
 
     @Override
     public void add(C value) {
-        if (value == null){
+        Path<C> path = this.pathTo(value);
+        if(path.isEmpty()){
+            this.root = new Node<>(value);
             return;
         }
-
-        Node<C> dummy = root;
-
-        if (dummy == null){
-            root = new Node<C>(value);
-        }
-
-        while (!value.equals(dummy.getValue())){
-
-            if (value.compareTo(dummy.getValue()) < 0) { // se value < dummy.getValue()
-                if (dummy.getLeft() == null){
-                    dummy.setLeft(new Node<>(value));
-                }
-
-                dummy = dummy.getLeft();
-            } else if (value.compareTo(dummy.getValue()) > 0) { // se value > dummy.getValue()
-
-                if (dummy.getRight() == null){
-                    dummy.setRight(new Node<>(value));
-                }
-
-                dummy = dummy.getRight();
-            }
-            System.out.println(dummy.getValue());
-        }
+        checkAndAddInto(value, path.getLast());
+        path.reverseForEachWithParent(this::updateNodes);
     }
-
+    private void checkAndAddInto(C value, Node<C> current){
+        int comparatorResult = value.compareTo(current.getValue());
+        if(comparatorResult < 0) current.setLeft(new Node<>(value));
+        else if(comparatorResult > 0) current.setRight(new Node<>(value));
+        current.calculateHeight();
+    }
     @Override
-    public void delete(C value) {
+    public void delete(C value){
+        Path<C> path = internalDelete(value);
+        path.reverseForEachWithParent(this::updateNodes);
     }
+    private Path<C> internalDelete(C value) {
+        Path<C> path = pathTo(value);
+        if(!path.reachedValue(value)) throw new RuntimeException("Not found");
+        Node<C> parent = path.getParent(1);
+        Node<C> node = path.getLast();
+        if(executeSimpleDelete(parent, node)) {
+            path.popBack();
+            return path;
+        }
+        path.addToPath(node.getLeft());
+        while(!path.getLast().emptyRight())
+            path.addToPath(path.getLast().getRight());
 
-    @Override
-    public C get(C value) {
-        return null;
+        C valueToSet = path.getLast().getValue();
+        executeSimpleDelete(path.getParent(1), path.getLast());
+        path.popBack();
+        node.setValue(valueToSet);
+        return path;
     }
-
+    private boolean executeSimpleDelete(Node<C> parent, Node<C> current){
+        assert(current != null);
+        if(current.emptyRight() && current.emptyLeft()){
+            deleteEmptyNode(parent, current);
+            return true;
+        }
+        if(current.emptyRight() ^ current.emptyLeft()){
+            deleteNodeWithOneChild(parent, current);
+            return true;
+        }
+        return false;
+    }
+    private void deleteRoot(){
+        this.root = null;
+    }
+    private void deleteEmptyNode(Node<C> parent, Node<C> current){
+        if(parent == null) deleteRoot();
+        else if(parent.getLeft() == current) parent.setLeft(null);
+        else parent.setRight(null);
+    }
+    private void deleteNodeWithOneChild(Node<C> parent, Node<C> current){
+        assert(current != null);
+        Node<C> onlyChild = !current.emptyLeft() ? current.getLeft() : null;
+        onlyChild = !current.emptyRight() ? current.getRight() : onlyChild;
+        if(parent == null) this.root = onlyChild;
+        else if(parent.getLeft() == current) parent.setLeft(onlyChild);
+        else parent.setRight(onlyChild);
+    }
     @Override
     public C getOrAdd(C value, C defaultValue) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOrAdd'");
     }
+
+    public Node<C> getRoot() {
+        return root;
+    }
+    public void setRoot(Node<C> root) {
+        this.root = root;
+    }
+
 }

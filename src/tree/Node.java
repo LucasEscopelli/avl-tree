@@ -1,11 +1,21 @@
 package tree;
 
 public class Node<C> {
-    private C value;
-    private int height;
-    private Node<C> right;
-    private Node<C> left;
+    private C value = null;
+    private int height = 1;
+    private Node<C> right = null;
+    private Node<C> left = null;
 
+    public Node(){
+        super();
+    }
+
+    public Node(C value){
+        this.value = value;
+    }
+
+    public boolean emptyRight() { return this.right == null; }
+    public boolean emptyLeft() { return this.left == null; }
     public Node<C> getRight() {
         return right;
     }
@@ -18,8 +28,15 @@ public class Node<C> {
         return value;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void calculateHeight(){
+        int leftHeight = (left != null) ? left.height : 0;
+        int rightHeight = (right != null) ? right.height : 0;
+        this.height = 1 + Math.max(leftHeight, rightHeight);
+    }
+    public int getBalanceFactor(){
+        int leftHeight = (left != null) ? left.height : 0;
+        int rightHeight = (right != null) ? right.height : 0;
+        return leftHeight - rightHeight;
     }
 
     public int getHeight() {
@@ -36,14 +53,5 @@ public class Node<C> {
 
     public void setLeft(Node<C> left) {
         this.left = left;
-    }
-
-    public Node(){
-        super();
-    }
-
-    public Node(C value){
-        this.value = value;
-        this.height = 0;
     }
 }

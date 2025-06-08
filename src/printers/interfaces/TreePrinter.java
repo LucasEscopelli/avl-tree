@@ -2,6 +2,7 @@ package printers.interfaces;
 
 import tree.BinaryTree;
 
-public interface TreePrinter {
-    void print(BinaryTree tree);
+public interface TreePrinter<C extends Comparable<C>> {
+    void print(BinaryTree<C> tree);
+    String name();
 }
