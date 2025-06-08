@@ -2,10 +2,8 @@ package menu.actions;
 
 import menu.actions.abstractactions.Action;
 import model.Context;
-import tree.Tree;
 
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class CloseApplicationAction <T> extends Action<Context> {
     public CloseApplicationAction(String name, Scanner scanner) {

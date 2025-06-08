@@ -1,10 +1,8 @@
 package menu.actions.abstractactions;
 
 import menu.actions.ActionStatus;
-import tree.Tree;
 
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public abstract class Action<T> {
     private String name;
