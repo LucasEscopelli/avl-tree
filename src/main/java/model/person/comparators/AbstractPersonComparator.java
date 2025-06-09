@@ -2,7 +2,7 @@ package model.person.comparators;
 
 import model.person.Person;
 
-public abstract class AbstractPersonComparator implements Comparable<AbstractPersonComparator> {
+public abstract class AbstractPersonComparator {
 	protected final Person person;
 
 	public AbstractPersonComparator(Person person) {
@@ -11,7 +11,6 @@ public abstract class AbstractPersonComparator implements Comparable<AbstractPer
 
 	abstract protected String getField();
 
-	@Override
     public int compareTo(AbstractPersonComparator o) {
 		assert(person != null);
 		assert(o != null);

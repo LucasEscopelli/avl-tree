@@ -2,7 +2,7 @@ package model.person.comparators;
 
 import model.person.Person;
 
-public class PersonCpfComparator extends AbstractPersonComparator {
+public class PersonCpfComparator extends AbstractPersonComparator implements Comparable<PersonCpfComparator>{
 
     public PersonCpfComparator(Person person){
         super(person);
@@ -11,4 +11,8 @@ public class PersonCpfComparator extends AbstractPersonComparator {
     protected String getField() {
         return this.person.getCpf();
     }
+
+	public int compareTo(PersonCpfComparator o) {
+        return super.compareTo(o);
+	}
 }
