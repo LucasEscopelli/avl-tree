@@ -1,7 +1,9 @@
 package model;
 
+import tree.BinaryTree;
 import tree.Tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.person.CsvPersonReader;
@@ -15,6 +17,13 @@ public class Context {
     private Tree<PersonCpfComparator> cpfIndexer;
     private Tree<PersonNameComparator> nameIndexer;
     private Tree<PersonDateComparator> dateIndexer;
+
+    public Context() {
+//        this.personList = new ArrayList<>();
+//        this.cpfIndexer = new BinaryTree<>();
+//        this.nameIndexer = new BinaryTree<>();
+//        this.dateIndexer = new BinaryTree<>();
+    }
 
     public void addPerson(Person person){
         personList.add(person);
