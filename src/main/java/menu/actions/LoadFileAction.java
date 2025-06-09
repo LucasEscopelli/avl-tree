@@ -12,7 +12,7 @@ public class LoadFileAction extends Action<Context>{
 	}
 
 	@Override
-	public ActionStatus runAction(Context tree) {
+	public ActionStatus runAction(Context ctx) {
 		System.out.print("Digite o caminho do arquivo .CSV (Default: './data/nomes.csv'): ");
 		String path = scanner.nextLine();
 		if (path.isEmpty()) {
@@ -20,7 +20,7 @@ public class LoadFileAction extends Action<Context>{
 		}
 		try {
 			System.out.println("Buscando arquivo...");
-			tree.loadFile(path);
+			ctx.loadFile(path);
 			System.out.println("Arquivo carregado com sucesso!");
 
 		} catch (Exception e) {
