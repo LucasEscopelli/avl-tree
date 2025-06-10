@@ -21,6 +21,7 @@ public class LoadFileAction extends Action<Context>{
 		try {
 			System.out.println("Buscando arquivo...");
 			ctx.loadFile(path);
+			ctx.loadTrees();
 			System.out.println("Arquivo carregado com sucesso!");
 
 		} catch (Exception e) {

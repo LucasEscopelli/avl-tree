@@ -2,7 +2,7 @@ package model.person.comparators;
 
 import model.person.Person;
 
-public class PersonNameComparator extends AbstractPersonComparator implements Comparable<PersonNameComparator>{
+public class PersonNameComparator extends AbstractPersonComparator<String> implements Comparable<PersonNameComparator>{
     public PersonNameComparator(Person person) {
         super(person);
     }
