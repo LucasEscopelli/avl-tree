@@ -2,13 +2,13 @@ package model.person.comparators;
 
 import model.person.Person;
 
-public class PersonCpfComparator extends AbstractPersonComparator implements Comparable<PersonCpfComparator>{
+public class PersonCpfComparator extends AbstractPersonComparator<Long> implements Comparable<PersonCpfComparator>{
 
     public PersonCpfComparator(Person person){
         super(person);
     }
     @Override
-    protected String getField() {
+    protected Long getField() {
         return this.person.getCpf();
     }
 

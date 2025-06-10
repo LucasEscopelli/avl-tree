@@ -2,16 +2,16 @@ package model.person.comparators;
 
 import model.person.Person;
 
-public abstract class AbstractPersonComparator {
+public abstract class AbstractPersonComparator <T extends Comparable<T>> {
 	protected final Person person;
 
 	public AbstractPersonComparator(Person person) {
 		this.person = person;
 	}
 
-	abstract protected String getField();
+	abstract protected T getField();
 
-    public int compareTo(AbstractPersonComparator o) {
+    public int compareTo(AbstractPersonComparator<T> o) {
 		assert(person != null);
 		assert(o != null);
 		assert(o.person != null);
