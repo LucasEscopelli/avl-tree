@@ -23,6 +23,7 @@ public class Context {
         cpfIndexer = new BinaryTree<PersonCpfComparator>();
         nameIndexer = new BinaryTree<PersonNameComparator>();
         dateIndexer = new BinaryTree<PersonDateComparator>();
+
     }
 
     public void addPerson(Person person){

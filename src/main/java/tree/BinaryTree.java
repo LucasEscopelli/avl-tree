@@ -117,4 +117,50 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         this.root = root;
     }
 
+    @Override
+    public C getLeft(C value) {
+        Path<C> path = pathTo(value);
+        if(path.reachedValue(value)) return value;
+        C parent = path.getLast().getValue();
+        if(value.compareTo(parent) < 0) return parent;
+        // compareValue is necessary > 0
+        // as we didn't reached the value (=0) and already returned if < 0
+        while(!path.isEmpty() && value.compareTo(path.getLast().getValue()) > 0){
+            path.popBack();
+        }
+        if(path.isEmpty()) return null;
+        // value is on the left subtree of path.getLast()
+        Node<C> searchNode = path.getLast();
+        if(searchNode.emptyRight()) return searchNode.getValue();
+        return getMinOfSubtree(searchNode.getRight());
+    }
+    @Override
+    public C getRight(C value) {
+        Path<C> path = pathTo(value);
+        if(path.reachedValue(value)) return value;
+        C parent = path.getLast().getValue();
+        if(value.compareTo(parent) > 0) return parent;
+        // compareValue is necessary < 0
+        // as we didn't reached the value (=0) and already returned if > 0
+        while(!path.isEmpty() && value.compareTo(path.getLast().getValue()) < 0){
+            path.popBack();
+        }
+        if(path.isEmpty()) return null;
+        // value is on the right subtree of path.getLast()
+        Node<C> searchNode = path.getLast();
+        if(searchNode.emptyLeft()) return searchNode.getValue();
+        return getMaxOfSubtree(searchNode.getLeft());
+    }
+
+    private C getMinOfSubtree(Node<C> node){
+        Node<C> response = node;
+        while(!response.emptyLeft()) response = response.getLeft();
+        return response.getValue();
+    }
+    private C getMaxOfSubtree(Node<C> node){
+        Node<C> response = node;
+        while(!response.emptyRight()) response = response.getRight();
+        return response.getValue();
+    }
+
 }

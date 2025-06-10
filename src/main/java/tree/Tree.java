@@ -5,4 +5,6 @@ public interface Tree<C>{
     void delete(C value);
     C get(C value);
     C getOrAdd(C value, C defaultValue);
+    C getLeft(C value);
+    C getRight(C value);
 }
