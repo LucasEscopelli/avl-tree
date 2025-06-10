@@ -18,16 +18,19 @@ public class Context {
     private Tree<PersonNameComparator> nameIndexer;
     private Tree<PersonDateComparator> dateIndexer;
 
+    public List<Person> getPersonList() { return personList; }
+    public Tree<PersonCpfComparator> getCpfIndexer() { return cpfIndexer; }
+    public Tree<PersonNameComparator> getNameIndexer() { return nameIndexer; }
+    public Tree<PersonDateComparator> getDateIndexer() { return dateIndexer; }
+
     public Context(){
         personList = new ArrayList<>();
         cpfIndexer = new BinaryTree<PersonCpfComparator>();
         nameIndexer = new BinaryTree<PersonNameComparator>();
         dateIndexer = new BinaryTree<PersonDateComparator>();
-
     }
 
     public void addPerson(Person person){
-        personList.add(person);
         cpfIndexer.add(new PersonCpfComparator(person));
         nameIndexer.add(new PersonNameComparator(person));
         dateIndexer.add(new PersonDateComparator(person));
@@ -35,6 +38,11 @@ public class Context {
 
     public void loadFile(String filePath){
         CsvPersonReader personReader = new CsvPersonReader();
-        personReader.read(filePath).forEach(p -> addPerson(p));
+        personList = personReader.read(filePath);
     }
+
+    public void loadTrees(){
+        personList.forEach(this::addPerson);
+    }
+
 }
