@@ -3,6 +3,7 @@ package model;
 import tree.BinaryTree;
 import tree.Tree;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Context {
         dateIndexer.add(new PersonDateComparator(person));
     }
 
-    public void loadFile(String filePath){
+    public void loadFile(String filePath) throws IOException, NumberFormatException, IllegalArgumentException {
         CsvPersonReader personReader = new CsvPersonReader();
         personList = personReader.read(filePath);
     }

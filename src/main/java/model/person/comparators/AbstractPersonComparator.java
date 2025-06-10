@@ -5,6 +5,8 @@ import model.person.Person;
 public abstract class AbstractPersonComparator <T extends Comparable<T>> {
 	protected final Person person;
 
+	public Person getPerson(){ return person; }
+
 	public AbstractPersonComparator(Person person) {
 		this.person = person;
 	}

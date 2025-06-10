@@ -23,12 +23,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person {" +
-                "cpf=" + cpf +
-                ", rg='" + rg + '\'' +
-                ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+        return  "  CPF: " + cpf + "\n" +
+                "  RG: " + rg + "\n" +
+                "  Nome: " + name + "\n" +
+                "  Data de Nascimento: " + birthDate + "\n" +
+                "  Cidade: " + city + "\n";
     }
 }
