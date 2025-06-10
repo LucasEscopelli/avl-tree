@@ -18,11 +18,12 @@ public class Context {
     private Tree<PersonNameComparator> nameIndexer;
     private Tree<PersonDateComparator> dateIndexer;
 
-    public Context() {
-//        this.personList = new ArrayList<>();
-//        this.cpfIndexer = new BinaryTree<>();
-//        this.nameIndexer = new BinaryTree<>();
-//        this.dateIndexer = new BinaryTree<>();
+    public Context(){
+        personList = new ArrayList<>();
+        cpfIndexer = new BinaryTree<PersonCpfComparator>();
+        nameIndexer = new BinaryTree<PersonNameComparator>();
+        dateIndexer = new BinaryTree<PersonDateComparator>();
+
     }
 
     public void addPerson(Person person){
