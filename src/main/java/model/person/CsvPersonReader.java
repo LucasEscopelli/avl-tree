@@ -20,8 +20,8 @@ public class CsvPersonReader implements PersonReader {
 
                 if (fields.length == 5) {
                     Person person = new Person(
-                            fields[0], // CPF
-                            fields[1], // RG
+                            Long.parseLong(fields[0].trim()), // CPF
+                            Long.parseLong(fields[1].trim()), // RG
                             fields[2], // Name
                             fields[3], // Birth Date
                             fields[4]  // City
