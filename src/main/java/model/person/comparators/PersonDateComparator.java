@@ -11,7 +11,7 @@ public class PersonDateComparator extends AbstractPersonComparator<Date> impleme
 
     @Override
     protected Date getField() {
-        return this.person.getBirthDate();
+        return this.person!=null ? this.person.getBirthDate() : value;
     }
 
     @Override
