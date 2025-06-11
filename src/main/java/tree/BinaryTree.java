@@ -1,5 +1,8 @@
 package tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     private Node<C> root;
     private final TreeBalancer<C> balancer;
@@ -117,50 +120,19 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         this.root = root;
     }
 
-    @Override
-    public C getLeft(C value) {
-        Path<C> path = pathTo(value);
-        if(path.reachedValue(value)) return value;
-        C parent = path.getLast().getValue();
-        if(value.compareTo(parent) < 0) return parent;
-        // compareValue is necessary > 0
-        // as we didn't reached the value (=0) and already returned if < 0
-        while(!path.isEmpty() && value.compareTo(path.getLast().getValue()) > 0){
-            path.popBack();
-        }
-        if(path.isEmpty()) return null;
-        // value is on the left subtree of path.getLast()
-        Node<C> searchNode = path.getLast();
-        if(searchNode.emptyRight()) return searchNode.getValue();
-        return getMinOfSubtree(searchNode.getRight());
-    }
-    @Override
-    public C getRight(C value) {
-        Path<C> path = pathTo(value);
-        if(path.reachedValue(value)) return value;
-        C parent = path.getLast().getValue();
-        if(value.compareTo(parent) > 0) return parent;
-        // compareValue is necessary < 0
-        // as we didn't reached the value (=0) and already returned if > 0
-        while(!path.isEmpty() && value.compareTo(path.getLast().getValue()) < 0){
-            path.popBack();
-        }
-        if(path.isEmpty()) return null;
-        // value is on the right subtree of path.getLast()
-        Node<C> searchNode = path.getLast();
-        if(searchNode.emptyLeft()) return searchNode.getValue();
-        return getMaxOfSubtree(searchNode.getLeft());
+    public List<C> getBetween(C start, C end){
+        List<C> responseList = new ArrayList<>();
+        this.getBetween(this.root, start, end, responseList);
+        return responseList;
     }
 
-    private C getMinOfSubtree(Node<C> node){
-        Node<C> response = node;
-        while(!response.emptyLeft()) response = response.getLeft();
-        return response.getValue();
-    }
-    private C getMaxOfSubtree(Node<C> node){
-        Node<C> response = node;
-        while(!response.emptyRight()) response = response.getRight();
-        return response.getValue();
-    }
+    private void getBetween(Node<C> current, C start, C end, List<C> responseList){
+        if(current == null) return;
+        if(current.getValue().compareTo(start) < 0) return;
+        if(current.getValue().compareTo(end) > 0) return;
 
+        if(!current.emptyLeft()) getBetween(current.getLeft(), start, end, responseList);
+        responseList.add(current.getValue());
+        if(!current.emptyRight()) getBetween(current.getRight(), start, end, responseList);
+    }
 }
