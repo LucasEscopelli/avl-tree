@@ -3,12 +3,14 @@ package model.person.comparators;
 import model.person.Person;
 
 public abstract class AbstractPersonComparator <T extends Comparable<T>> {
+	protected final T value;
 	protected final Person person;
 
 	public Person getPerson(){ return person; }
 
-	public AbstractPersonComparator(Person person) {
-		this.person = person;
+	public AbstractPersonComparator(Person person, T value) {
+        this.value = value;
+        this.person = person;
 	}
 
 	abstract protected T getField();

@@ -31,9 +31,8 @@ public class GetPersonByCpfAction extends Action<Context>{
 			return ActionStatus.FAILED;
 		}
 
-        System.out.println("Buscando por cpf...");
-		Person dummyPerson = new Person(cpfValue, 0, "", "", "");
-		PersonCpfComparator searchComparator = new PersonCpfComparator(dummyPerson);
+        	System.out.println("Buscando por cpf...");
+		PersonCpfComparator searchComparator = new PersonCpfComparator(null, cpfValue);
 		PersonCpfComparator foundComparator = ctx.getCpfIndexer().get(searchComparator);
 
 		if (foundComparator != null) {

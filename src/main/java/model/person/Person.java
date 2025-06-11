@@ -1,13 +1,15 @@
 package model.person;
 
+import java.util.Date;
+
 public class Person {
     private long cpf;
     private long rg;
     private String name;
-    private String birthDate;
+    private Date birthDate;
     private String city;
 
-    public Person(long cpf, long rg, String name, String birthDate, String city) {
+    public Person(long cpf, long rg, String name, Date birthDate, String city) {
         this.cpf = cpf;
         this.rg = rg;
         this.name = name;
@@ -18,7 +20,7 @@ public class Person {
     public long getCpf() { return cpf; }
     public long getRg() { return rg; }
     public String getName() { return name; }
-    public String getBirthDate() { return birthDate; }
+    public Date getBirthDate() { return birthDate; }
     public String getCity() { return city; }
 
     @Override

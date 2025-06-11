@@ -3,7 +3,13 @@ package model.person;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CsvPersonReader implements PersonReader {
@@ -30,12 +36,13 @@ public class CsvPersonReader implements PersonReader {
                     try {
                         long cpf = Long.parseLong(fields[0].trim());
                         long rg = Long.parseLong(fields[1].trim());
+                        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(fields[3]);
 
                         Person person = new Person(
                                 cpf,
                                 rg,
                                 fields[2],   // Name
-                                fields[3],   // Birth Date
+                                date,   // Birth Date
                                 fields[4]    // City
                         );
                         people.add(person);
@@ -44,6 +51,12 @@ public class CsvPersonReader implements PersonReader {
                         throw new NumberFormatException(
                                 "Erro de formato numérico na linha " + lineNumber +
                                 " do arquivo '" + filePath + "': " + e.getMessage() + " - Dado: '" + line + "'"
+                        );
+                    } catch (ParseException e) {
+                        throw new IllegalArgumentException(
+                                "Dado mal formado na linha " + lineNumber +
+                                        " do arquivo '" + filePath +
+                                        "'. Esperado 5 campos, encontrado " + fields.length + ". Dado: '" + line + "'"
                         );
                     }
                 } else {
