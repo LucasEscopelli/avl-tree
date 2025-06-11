@@ -4,8 +4,8 @@ import model.person.Person;
 
 public class PersonCpfComparator extends AbstractPersonComparator<Long> implements Comparable<PersonCpfComparator>{
 
-    public PersonCpfComparator(Person person){
-        super(person);
+    public PersonCpfComparator(Person person, Long cpf){
+        super(person, cpf);
     }
     @Override
     protected Long getField() {

@@ -7,9 +7,19 @@
       <option name="url" value="https://artifactory.sapfgl.com/artifactory/remote-repos" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://int.repositories.cloud.sap/artifactory/build-milestones/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="releases" />
       <option name="name" value="libs-release" />
       <option name="url" value="https://artifactory.sapfgl.com/artifactory/remote-repos" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nexus-central" />
+      <option name="name" value="nexus-central" />
+      <option name="url" value="https://int.repositories.cloud.sap/artifactory/build-snapshots/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

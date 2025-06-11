@@ -18,22 +18,14 @@ public class GetPersonByCpfAction extends Action<Context>{
 		System.out.print("Digite o CPF (somente números): ");
 		String cpfInput = scanner.nextLine();
 
-		if (!isValidCpfFormat(cpfInput)) {
-			System.out.println("Erro: CPF inválido. Deve conter exatamente 11 dígitos numéricos.");
-			return ActionStatus.FAILED;
-		}
 
 		long cpfValue;
-		try {
-			cpfValue = Long.parseLong(cpfInput);
-		} catch (NumberFormatException e) {
-			System.out.println("Erro interno: CPF não pôde ser convertido para número. Tente novamente.");
-			return ActionStatus.FAILED;
-		}
+
+		cpfValue = Long.parseLong(cpfInput);
+
 
         System.out.println("Buscando por cpf...");
-		Person dummyPerson = new Person(cpfValue, 0, "", "", "");
-		PersonCpfComparator searchComparator = new PersonCpfComparator(dummyPerson);
+		PersonCpfComparator searchComparator = new PersonCpfComparator(null, cpfValue);
 		PersonCpfComparator foundComparator = ctx.getCpfIndexer().get(searchComparator);
 
 		if (foundComparator != null) {
