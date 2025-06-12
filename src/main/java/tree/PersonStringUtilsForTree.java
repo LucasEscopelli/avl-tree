@@ -14,10 +14,12 @@ public class PersonStringUtilsForTree {
 
         PersonNameComparator start = new PersonNameComparator(startName);
         PersonNameComparator end = new PersonNameComparator(endName);
+        PersonNameComparator definitiveName = new PersonNameComparator(prefix);
 
-        final PersonNameComparator person = tree.get(start);
 
-        if(person != null && person.getPerson().getName().equals("prefix")){
+        final PersonNameComparator person = tree.get(definitiveName);
+
+        if(person != null && person.getPerson().getName().equals(prefix)){
             result.add(person);
         }
 
