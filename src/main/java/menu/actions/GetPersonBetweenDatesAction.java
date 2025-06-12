@@ -26,6 +26,7 @@ public class GetPersonBetweenDatesAction extends Action<Context>{
 		PersonDateComparator comparatorEndda = new PersonDateComparator(endDate);
 		List<PersonDateComparator> personDateComparators = tree.getDateIndexer().getBetween(comparatorBegda, comparatorEndda);
 		if(!personDateComparators.isEmpty()){
+			System.out.printf("Total de %d pessoas encontradas.%n", personDateComparators.size());
 			personDateComparators.forEach(personDateComparator ->
 					System.out.println(personDateComparator.getPerson().toString())
 			);

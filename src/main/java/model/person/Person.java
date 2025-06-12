@@ -1,5 +1,6 @@
 package model.person;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
@@ -25,10 +26,11 @@ public class Person {
 
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return  "  CPF: " + cpf + "\n" +
                 "  RG: " + rg + "\n" +
                 "  Nome: " + name + "\n" +
-                "  Data de Nascimento: " + birthDate + "\n" +
+                "  Data de Nascimento: " + sdf.format(birthDate) + "\n" +
                 "  Cidade: " + city + "\n";
     }
 }

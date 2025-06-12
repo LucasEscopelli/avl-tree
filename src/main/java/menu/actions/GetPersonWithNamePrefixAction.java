@@ -28,6 +28,7 @@ public class GetPersonWithNamePrefixAction extends Action<Context> {
 		List<PersonNameComparator> personNameComparatorList = PersonStringUtilsForTree.getNamesByPrefix(tree.getNameIndexer(), prefix);
 
 		if(!personNameComparatorList.isEmpty()){
+			System.out.printf("Total de %d pessoas encontradas.%n", personNameComparatorList.size());
 			personNameComparatorList.forEach(personDateComparator ->
 					System.out.println(personDateComparator.getPerson().toString())
 			);
