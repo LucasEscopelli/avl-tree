@@ -22,8 +22,8 @@ public class GetPersonBetweenDatesAction extends Action<Context>{
 		Date endDate = UserInteractor.getDateValueFromUser(scanner, this::printEnddaAction);
 
 		System.out.println("Buscando por datas");
-		PersonDateComparator comparatorBegda = new PersonDateComparator(null, beginDate);
-		PersonDateComparator comparatorEndda = new PersonDateComparator(null, endDate);
+		PersonDateComparator comparatorBegda = new PersonDateComparator(beginDate);
+		PersonDateComparator comparatorEndda = new PersonDateComparator(endDate);
 		List<PersonDateComparator> personDateComparators = tree.getDateIndexer().getBetween(comparatorBegda, comparatorEndda);
 		if(!personDateComparators.isEmpty()){
 			personDateComparators.forEach(personDateComparator ->

@@ -2,12 +2,17 @@ package model.person.comparators;
 
 import model.person.Person;
 
-import java.util.Date;
 
 public class PersonCpfComparator extends AbstractPersonComparator<Long> implements Comparable<PersonCpfComparator>{
 
     public PersonCpfComparator(Person person, Long cpf){
         super(person, cpf);
+    }
+    public PersonCpfComparator(Person person) {
+        super(person, null);
+    }
+    public PersonCpfComparator(Long cpf) {
+        super(null, cpf);
     }
     @Override
     protected Long getField() {
