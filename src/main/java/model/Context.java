@@ -32,9 +32,9 @@ public class Context {
     }
 
     public void addPerson(Person person){
-        cpfIndexer.add(new PersonCpfComparator(person));
-        nameIndexer.add(new PersonNameComparator(person));
-        dateIndexer.add(new PersonDateComparator(person));
+        cpfIndexer.add(new PersonCpfComparator(person, null));
+        nameIndexer.add(new PersonNameComparator(person, null));
+        dateIndexer.add(new PersonDateComparator(person, null));
     }
 
     public void loadFile(String filePath) throws IOException, NumberFormatException, IllegalArgumentException {

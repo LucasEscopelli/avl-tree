@@ -5,6 +5,8 @@ import menu.actions.abstractactions.Action;
 import menu.terminalhandler.ConsoleHandler;
 import menu.terminalhandler.UserInteractor;
 import model.Context;
+import printers.StatisticsPrinter;
+import tree.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,9 @@ public class Menu {
                 continue;
             }
             printChoice(choice);
+            Statistics.getInstance().clear();
             actionStatus = actions.get(choice).runAction(ctx);
+            StatisticsPrinter.printStatistics(Statistics.getInstance());
             printSeparator();
         }
     }
