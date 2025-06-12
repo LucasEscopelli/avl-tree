@@ -128,8 +128,14 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
 
     private void getBetween(Node<C> current, C start, C end, List<C> responseList){
         if(current == null) return;
-        if(current.getValue().compareTo(start) < 0) return;
-        if(current.getValue().compareTo(end) > 0) return;
+        if(current.getValue().compareTo(start) < 0) {
+            getBetween(current.getRight(), start, end, responseList);
+            return;
+        }
+        if(current.getValue().compareTo(end) > 0){
+            getBetween(current.getLeft(), start, end, responseList);
+            return;
+        }
 
         if(!current.emptyLeft()) getBetween(current.getLeft(), start, end, responseList);
         responseList.add(current.getValue());
