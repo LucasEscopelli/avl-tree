@@ -35,6 +35,7 @@ public class TreeBalancer<C extends Comparable<C>> {
      * Z         W
      */
     private void simpleRotationRight(Node<C> parent, Node<C> current){
+        Statistics.getInstance().incrementRebalance();
         Node<C> leftChild = current.getLeft();
         assert(leftChild != null); // We should only call this method if the right rotation is possible.
         setNewChildForParent(parent, current, leftChild);
@@ -62,6 +63,7 @@ public class TreeBalancer<C extends Comparable<C>> {
      *  W     Y
      */
     private void simpleRotationLeft(Node<C> parent, Node<C> current){
+        Statistics.getInstance().incrementRebalance();
         Node<C> rightChild = current.getRight();
         assert(rightChild != null); // We should only call this method if the right rotation is possible.
         setNewChildForParent(parent, current, rightChild);

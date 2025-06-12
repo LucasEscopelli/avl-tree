@@ -19,7 +19,9 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         Path<C> response = new Path<>();
         Node<C> current = this.root;
         while(current != null){
+            Statistics.getInstance().incrementTreeWalks();
             response.addToPath(current);
+            Statistics.getInstance().incrementComparison();
             int compareValue = value.compareTo(current.getValue());
             if(compareValue < 0) current = current.getLeft();
             else if(compareValue > 0) current = current.getRight();
@@ -43,6 +45,7 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
     public void add(C value) {
         Path<C> path = this.pathTo(value);
         if(path.isEmpty()){
+            Statistics.getInstance().incrementTreeWalks();
             this.root = new Node<>(value);
             return;
         }
@@ -50,9 +53,13 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         path.reverseForEachWithParent(this::updateNodes);
     }
     private void checkAndAddInto(C value, Node<C> current){
+        Statistics.getInstance().incrementComparison();
         int comparatorResult = value.compareTo(current.getValue());
+
+        Statistics.getInstance().incrementTreeWalks();
         if(comparatorResult < 0) current.setLeft(new Node<>(value));
         else if(comparatorResult > 0) current.setRight(new Node<>(value));
+
         current.calculateHeight();
     }
     @Override
@@ -69,9 +76,12 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
             path.popBack();
             return path;
         }
+        Statistics.getInstance().incrementTreeWalks();
         path.addToPath(node.getLeft());
-        while(!path.getLast().emptyRight())
+        while(!path.getLast().emptyRight()){
+            Statistics.getInstance().incrementTreeWalks();
             path.addToPath(path.getLast().getRight());
+        }
 
         C valueToSet = path.getLast().getValue();
         executeSimpleDelete(path.getParent(1), path.getLast());
@@ -107,11 +117,6 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
         else if(parent.getLeft() == current) parent.setLeft(onlyChild);
         else parent.setRight(onlyChild);
     }
-    @Override
-    public C getOrAdd(C value, C defaultValue) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrAdd'");
-    }
 
     public Node<C> getRoot() {
         return root;
@@ -128,8 +133,17 @@ public class BinaryTree<C extends Comparable<C>> implements Tree<C> {
 
     private void getBetween(Node<C> current, C start, C end, List<C> responseList){
         if(current == null) return;
-        if(current.getValue().compareTo(start) < 0) return;
-        if(current.getValue().compareTo(end) > 0) return;
+        Statistics.getInstance().incrementTreeWalks();
+        Statistics.getInstance().incrementComparison();
+        if(current.getValue().compareTo(start) < 0) {
+            getBetween(current.getRight(), start, end, responseList);
+            return;
+        }
+        Statistics.getInstance().incrementComparison();
+        if(current.getValue().compareTo(end) > 0){
+            getBetween(current.getLeft(), start, end, responseList);
+            return;
+        }
 
         if(!current.emptyLeft()) getBetween(current.getLeft(), start, end, responseList);
         responseList.add(current.getValue());
