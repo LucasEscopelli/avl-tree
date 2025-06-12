@@ -16,12 +16,12 @@ public abstract class AbstractPersonComparator <T extends Comparable<T>> {
 	abstract protected T getField();
 
     public int compareTo(AbstractPersonComparator<T> o) {
-		assert(person != null);
 		assert(o != null);
-		assert(o.person != null);
-        if(getField() == null) return 1;
-        if(o.getField() == null) return -1;
-        return getField().compareTo(o.getField());
+		T fieldToCompare = getField();
+		T oFieldToCompare = o.getField();
+        if(fieldToCompare == null) return 1;
+        if(oFieldToCompare == null) return -1;
+        return fieldToCompare.compareTo(oFieldToCompare);
     }
 
 	@Override

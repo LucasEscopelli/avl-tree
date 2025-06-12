@@ -12,15 +12,16 @@ public class PersonStringUtilsForTree {
         String endName = prefix + Character.MAX_VALUE;
         ArrayList<PersonNameComparator> result = new ArrayList<>();
 
-        PersonNameComparator start = new PersonNameComparator(startName);
-        PersonNameComparator end = new PersonNameComparator(endName);
-        PersonNameComparator definitiveName = new PersonNameComparator(prefix);
+        PersonNameComparator start = new PersonNameComparator(startName, 0);
+        PersonNameComparator end = new PersonNameComparator(endName, 1);
+        PersonNameComparator definitiveNameStart = new PersonNameComparator(prefix, 0);
+        PersonNameComparator definitiveNameEnd = new PersonNameComparator(prefix, 1);
 
 
-        final PersonNameComparator person = tree.get(definitiveName);
+        final List<PersonNameComparator> persons = tree.getBetween(definitiveNameStart, definitiveNameEnd);
 
-        if(person != null && person.getPerson().getName().equals(prefix)){
-            result.add(person);
+        if(persons != null){
+            result.addAll(persons);
         }
 
         result.addAll(tree.getBetween(start, end));

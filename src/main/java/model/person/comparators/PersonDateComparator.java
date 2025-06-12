@@ -5,14 +5,14 @@ import model.person.Person;
 import java.util.Date;
 
 public class PersonDateComparator extends AbstractPersonComparator<Date> implements Comparable<PersonDateComparator>{
-    public PersonDateComparator(Person person, Date date) {
-        super(person, date);
-    }
+    private Long sentinel = Long.valueOf(0);
     public PersonDateComparator(Person person) {
         super(person, null);
     }
-    public PersonDateComparator(Date date) {
+    public PersonDateComparator(Date date, int type) {
         super(null, date);
+        if(type == 0) this.sentinel = Long.MIN_VALUE;
+        else this.sentinel = Long.MAX_VALUE;
     }
 
     @Override
@@ -22,6 +22,12 @@ public class PersonDateComparator extends AbstractPersonComparator<Date> impleme
 
     @Override
     public int compareTo(PersonDateComparator o) {
-        return super.compareTo(o);
+        int result = super.compareTo(o);
+        if(result != 0) return result;
+        Long myCpf = sentinel;
+        Long otherCpf = sentinel;
+        if(this.value == null) myCpf = person.getCpf();
+        if(o.value == null) otherCpf = o.getPerson().getCpf();
+        return myCpf.compareTo(otherCpf);
     }
 }
