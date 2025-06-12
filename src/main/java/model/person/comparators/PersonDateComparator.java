@@ -8,6 +8,12 @@ public class PersonDateComparator extends AbstractPersonComparator<Date> impleme
     public PersonDateComparator(Person person, Date date) {
         super(person, date);
     }
+    public PersonDateComparator(Person person) {
+        super(person, null);
+    }
+    public PersonDateComparator(Date date) {
+        super(null, date);
+    }
 
     @Override
     protected Date getField() {

@@ -2,11 +2,16 @@ package model.person.comparators;
 
 import model.person.Person;
 
-import java.util.Date;
 
 public class PersonNameComparator extends AbstractPersonComparator<String> implements Comparable<PersonNameComparator>{
     public PersonNameComparator(Person person, String name) {
         super(person, name);
+    }
+    public PersonNameComparator(Person person) {
+        super(person, null);
+    }
+    public PersonNameComparator(String name) {
+        super(null, name);
     }
 
     @Override
